@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <string>
 #include <vtkPolyData.h>
 
 
@@ -12,12 +11,7 @@ public:
 
     void initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2);
 
-    void SaveToPolyData();
-
     void SaveToFileVTK();
-
-    void SaveToFile();
-
 
     virtual void Generate() = 0;
 
@@ -25,14 +19,10 @@ public:
     double R , Radius;
     double cell_size;
     double Nx, Ny, Nz;
-    int i = 0;
-     int parts;
+    int parts;
 
-    std::string filename = "Failas_1";
-    vtkPolyData *poly;
+    vtkPolyData  *poly;
 
-
-    //vectoriai poziciju koordinatems.
     std::vector<double> x_Points;
     std::vector<double> y_Points;
     std::vector<double> z_Points;
@@ -41,12 +31,8 @@ public:
     std::vector<double> Skirtingi_spinduliai;
     std::vector<double> Daleliu_ID;
 
-    //Dalelius skaicius.
     int Number_Of_Lines;
     int Number_Of_Points;
-
-
-
 
 };
 
