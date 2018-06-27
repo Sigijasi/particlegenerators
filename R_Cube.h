@@ -9,5 +9,7 @@ public:
 
     double r_min, r_max;
 
+    int parts;
+
     void Generate();
 };

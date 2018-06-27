@@ -11,7 +11,7 @@ int main()
 {
     Generator1 * gen = new M_Cube();
 
-    gen->initGrid(0.5, 0, 2 , 0, 2, 0, 3); //R_Cube didziausias spindulys irasomas kaip pirmas argumentas.
+    gen->initGrid(0.25, 0, 6, 0, 6, 0, 6); //R_Cube didziausias spindulys irasomas kaip pirmas argumentas.
 
     gen->Generate();
 

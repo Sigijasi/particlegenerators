@@ -1,5 +1,4 @@
 #include "Generator1.h"
-
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkDoubleArray.h>
@@ -13,42 +12,38 @@
 #include <vtkSmartPointer.h>
 #include <vtkVersion.h>
 #include <vtkPolyData.h>
+#include <vtkLine.h>
+#include <vtkPolyLine.h>
 #include <iostream>
-
 using namespace std;
-
 Generator1::Generator1()
 {
     poly = vtkPolyData::New();
 }
-
 Generator1::~Generator1()
 {
 }
-
 void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2)
 {
     cell_size = 2 * R;
     Radius = R;
 
+    Nx1 = x2 - x1;
+    Ny1 = y2 - y1;
+    Nz1 = z2 - z1;
+
     Nz = (z2 - z1) / cell_size;
     Ny = (y2 - y1) / cell_size;
     Nx = (x2 - x1) / cell_size;
-
-
-
-
 }
-
  void Generator1::SaveToFileVTK()
  {
-
     vtkPoints *p = vtkPoints::New();
     p->SetNumberOfPoints(Number_Of_Points);
 
     vtkDoubleArray *r = vtkDoubleArray::New();
     r->SetNumberOfComponents(1);
-    r->SetName("Radius - (Spindulys)");
+    r->SetName("RADIUS");
     r->SetNumberOfTuples(Number_Of_Points);
 
     vtkDoubleArray *id = vtkDoubleArray::New();
@@ -81,20 +76,15 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     Unique_radius->SetName("UNIQUE-RADIUS");
     Unique_radius->SetNumberOfTuples(parts);
 
-    Number_Of_Lines = Number_Of_Points;
+    vtkCellArray *cells = vtkCellArray::New();
 
     for(int i = 0; i < Number_Of_Points; i++)
     {
         id->SetTuple1(i, Daleliu_ID[i]);
-
         Particle_type->SetTuple1(i, 0);
-
         Particle_material->SetTuple1(i, 0);
-
         Particle_fix->SetTuple1(i, 0);
-
         Velocity->SetTuple3(i, 0, 0, 0);
-
         r->SetTuple1(i, Skirtingi_spinduliai[i]);
     }
 
@@ -103,53 +93,73 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         Unique_radius->SetTuple1(i, Random_radius[i]);
     }
 
-    for(int f = 0; f < x_Points.size(); f++) 
+    for(int f = 0; f < x_Points.size(); f++)
     {
         p->SetPoint(f, x_Points[f], y_Points[f], z_Points[f]);
     }
 
+    //-----------------------------------------------------------------------------------
+
+    vtkDoubleArray * ilgis  = vtkDoubleArray::New();
+    ilgis->SetNumberOfComponents(1);
+    ilgis->SetName("DISTANCE");
+    ilgis->SetNumberOfTuples(Number_Of_Points);
+
+
+
+    double x, y, z, ilgis_1, paklaida(5e-16);
+
+
+
+
+    for(int i = 0; i < x_Points.size() ; i++)
+    {
+        for(int j = i + 1; j < x_Points.size(); j++)
+        {
+
+            x = x_Points[j] - x_Points[i];
+
+            y = y_Points[j] - y_Points[i];
+
+            z = z_Points[j] - z_Points[i];
+
+            ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
+
+            if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
+            {
+                cells->InsertNextCell(2);
+                cells->InsertCellPoint(i);
+                cells->InsertCellPoint(j);
+                ilgis->SetTuple1(i, ilgis_1);
+            }
+        }
+    }
+
+    poly->SetLines(cells);
+    poly->GetCellData()->SetScalars(ilgis);
     poly->SetPoints(p);
-
     poly->GetPointData()->SetScalars(r);
-
     poly->GetPointData()->AddArray(Particle_fix);
-
     poly->GetPointData()->AddArray(id);
-
     poly->GetPointData()->AddArray(Particle_type);
-
     poly->GetPointData()->AddArray(Particle_material);
-
     poly->GetFieldData()->AddArray(Unique_radius);
 
-    vtkDataSetWriter *writer = vtkDataSetWriter::New(); //Save_To_File_VTK. (voidas)
+    vtkDataSetWriter *writer = vtkDataSetWriter::New(); //Save_To_File_VTK.
 
     writer->SetInputData(poly);
-
-    writer->SetFileName("failas.vtk");
-
+    writer->SetFileName("test112.vtk");
     writer->SetFileTypeToBinary();
-
     writer->Write();
-
     //-------------------
-
-    writer->Delete();
-
+     writer->Delete();
     Unique_radius->Delete(); //istrynus visus issaugoo0t.
-
     Velocity->Delete();
-
     Particle_material->Delete();
-
     Particle_type->Delete();
-
     id->Delete();
-
     r->Delete();
-
     p->Delete();
-
     poly->Delete();
 
  }
