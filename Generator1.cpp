@@ -103,7 +103,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     vtkDoubleArray * ilgis  = vtkDoubleArray::New();
     ilgis->SetNumberOfComponents(1);
     ilgis->SetName("DISTANCE");
-    ilgis->SetNumberOfTuples(Number_Of_Points);
+    //ilgis->SetNumberOfTuples(Number_Of_Points);
 
 
 
@@ -130,7 +130,8 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                 cells->InsertNextCell(2);
                 cells->InsertCellPoint(i);
                 cells->InsertCellPoint(j);
-                ilgis->SetTuple1(i, ilgis_1);
+                ilgis->InsertNextTuple1(ilgis_1);
+
             }
         }
     }
@@ -148,7 +149,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     vtkDataSetWriter *writer = vtkDataSetWriter::New(); //Save_To_File_VTK.
 
     writer->SetInputData(poly);
-    writer->SetFileName("test112.vtk");
+    writer->SetFileName("test_1.vtk");
     writer->SetFileTypeToBinary();
     writer->Write();
     //-------------------
