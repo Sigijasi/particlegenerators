@@ -15,23 +15,21 @@
 #include <vtkLine.h>
 #include <vtkPolyLine.h>
 #include <iostream>
+
 using namespace std;
+
 Generator1::Generator1()
 {
     poly = vtkPolyData::New();
 }
 Generator1::~Generator1()
 {
+
 }
 void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2)
 {
     cell_size = 2 * R;
     Radius = R;
-
-    Nx1 = x2 - x1;
-    Ny1 = y2 - y1;
-    Nz1 = z2 - z1;
-
     Nz = (z2 - z1) / cell_size;
     Ny = (y2 - y1) / cell_size;
     Nx = (x2 - x1) / cell_size;
@@ -98,29 +96,21 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         p->SetPoint(f, x_Points[f], y_Points[f], z_Points[f]);
     }
 
-    //-----------------------------------------------------------------------------------
-
     vtkDoubleArray * ilgis  = vtkDoubleArray::New();
     ilgis->SetNumberOfComponents(1);
     ilgis->SetName("DISTANCE");
-    //ilgis->SetNumberOfTuples(Number_Of_Points);
-
-
 
     double x, y, z, ilgis_1, paklaida(5e-16);
 
-
-
+    if(temp == 0)
+    {
 
     for(int i = 0; i < x_Points.size() ; i++)
     {
         for(int j = i + 1; j < x_Points.size(); j++)
         {
-
             x = x_Points[j] - x_Points[i];
-
             y = y_Points[j] - y_Points[i];
-
             z = z_Points[j] - z_Points[i];
 
             ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
@@ -131,6 +121,39 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                 cells->InsertCellPoint(i);
                 cells->InsertCellPoint(j);
                 ilgis->InsertNextTuple1(ilgis_1);
+            }
+        }
+    }
+    }
+
+    else if(temp == 1)
+    {
+        for(int i = 0; i < pirma_dalis ; i++)
+        {
+            for(int j = i + 1; j < pirma_dalis; j++)
+            {
+                x = x_Points[j] - x_Points[i];
+                y = y_Points[j] - y_Points[i];
+                z = z_Points[j] - z_Points[i];
+
+                ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
+
+                if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
+                {
+                    cells->InsertNextCell(2);
+                    cells->InsertCellPoint(i);
+                    cells->InsertCellPoint(j);
+                    ilgis->InsertNextTuple1(ilgis_1);
+                }
+            }
+
+        }
+
+        //su kuo sujungtos daleles, mzesnes, pagal kita salyga.
+        for(int i = pirma_dalis; i < x_Points.size(); i++)
+        {
+            for(int j = pirma_dalis + 1; j < x_Points.size(); j++)
+            {
 
             }
         }
@@ -146,15 +169,15 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     poly->GetPointData()->AddArray(Particle_material);
     poly->GetFieldData()->AddArray(Unique_radius);
 
-    vtkDataSetWriter *writer = vtkDataSetWriter::New(); //Save_To_File_VTK.
+    vtkDataSetWriter *writer = vtkDataSetWriter::New();
 
     writer->SetInputData(poly);
-    writer->SetFileName("test_1.vtk");
+    writer->SetFileName("test_4.vtk");
     writer->SetFileTypeToBinary();
     writer->Write();
-    //-------------------
-     writer->Delete();
-    Unique_radius->Delete(); //istrynus visus issaugoo0t.
+
+    writer->Delete();
+    Unique_radius->Delete();
     Velocity->Delete();
     Particle_material->Delete();
     Particle_type->Delete();

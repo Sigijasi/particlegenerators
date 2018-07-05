@@ -3,18 +3,21 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+
 using namespace std;
+
 M_Cube::M_Cube()
 {
+
 }
 M_Cube::~M_Cube()
 {
+
 }
+
 void M_Cube::Generate()
 {
-
-    double atstumas_tarp_tasku;
-    atstumas_tarp_tasku = (Radius - (sqrt((Radius * Radius) / 2))) * 2;
+    double atstumas_tarp_tasku = (Radius - (sqrt((Radius * Radius) / 2))) * 2;
 
     for(int i = 1; i <= 1; i++)
     {
@@ -23,18 +26,14 @@ void M_Cube::Generate()
             for(int k = 1; k <= Nz - 1; k++)
             {
                 x_Points.push_back((i * cell_size) + (Radius - atstumas_tarp_tasku));
-
                 y_Points.push_back(j * cell_size);
-
                 z_Points.push_back(k * cell_size);
             }
         }
     }
 
-    double atstumas;
+    double atstumas = Radius + (Radius - atstumas_tarp_tasku);
     double o = 3.0;
-
-    atstumas = (Radius + (Radius - atstumas_tarp_tasku));
 
     for(int i = 2; i <= Nx - 1; i++)
     {
@@ -42,19 +41,13 @@ void M_Cube::Generate()
         {
             for(int k = 1; k <= Nz - 1; k++)
             {
-                double a1;
-
-                a1 = Radius + (atstumas * o);
+                double a1 = Radius + (atstumas * o);
 
                 if(a1 <= Nx1)
                 {
-
                     x_Points.push_back(a1);
-
                     y_Points.push_back(j * cell_size);
-
                     z_Points.push_back(k * cell_size);
-
                 }
             }
         }
@@ -68,9 +61,7 @@ void M_Cube::Generate()
             for(int k = 0; k < Nz; k++)
             {
                 x_Points.push_back((i * cell_size) + Radius);
-
                 y_Points.push_back((j * cell_size) + Radius);
-
                 z_Points.push_back((k * cell_size) + Radius);
             }
         }
@@ -84,20 +75,13 @@ void M_Cube::Generate()
         {
             for(int k = 0; k < Nz; k++)
             {
-
-                double a2;
-
-                a2 = Radius + (atstumas * p);
+                double a2 = Radius + (atstumas * p);
 
                 if(a2 <= Nx1)
                 {
-
                     x_Points.push_back(a2);
-
                     y_Points.push_back((j * cell_size) + Radius);
-
                     z_Points.push_back((k * cell_size) + Radius);
-
                 }
             }
         }

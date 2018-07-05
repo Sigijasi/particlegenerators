@@ -13,7 +13,8 @@ R_Cube::R_Cube(double minimum, double maximum, int dalys)
     r_max = maximum;
 }
 R_Cube::~R_Cube()
-{   
+{
+
 }
 
 void R_Cube::Generate()
@@ -25,14 +26,11 @@ void R_Cube::Generate()
             for(int z = 0; z < Nz; z++)
             {
                 x_Points.push_back((i * cell_size) + Radius);
-
                 y_Points.push_back((j * cell_size) + Radius);
-
                 z_Points.push_back((z * cell_size) + Radius);
             }
         }
     }
-
 
     Number_Of_Points = (Nx * Ny) * Nz;
 
@@ -49,9 +47,7 @@ void R_Cube::Generate()
     for(int i = 0; i < Number_Of_Points; i++)
     {
         v2 = rand() % parts + 0;
-
         Skirtingi_spinduliai.push_back(Random_radius[v2]);
-
         Daleliu_ID.push_back(v2);
     }
 }
