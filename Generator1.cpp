@@ -24,12 +24,16 @@ Generator1::Generator1()
 }
 Generator1::~Generator1()
 {
-
 }
 void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2)
 {
     cell_size = 2 * R;
     Radius = R;
+
+    Nx1 = x2 - x1;
+    Ny1 = y2 - y1;
+    Nz1 = z2 - z1;
+
     Nz = (z2 - z1) / cell_size;
     Ny = (y2 - y1) / cell_size;
     Nx = (x2 - x1) / cell_size;
@@ -74,6 +78,10 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     Unique_radius->SetName("UNIQUE-RADIUS");
     Unique_radius->SetNumberOfTuples(parts);
 
+    vtkDoubleArray *ilgis  = vtkDoubleArray::New();
+    ilgis->SetNumberOfComponents(1);
+    ilgis->SetName("DISTANCE");
+    ilgis->SetNumberOfTuples(Number_Of_Points);
     vtkCellArray *cells = vtkCellArray::New();
 
     for(int i = 0; i < Number_Of_Points; i++)
@@ -86,58 +94,28 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         r->SetTuple1(i, Skirtingi_spinduliai[i]);
     }
 
-    for(int i = 0; i < parts; i++)
-    {
-        Unique_radius->SetTuple1(i, Random_radius[i]);
-    }
-
     for(int f = 0; f < x_Points.size(); f++)
     {
         p->SetPoint(f, x_Points[f], y_Points[f], z_Points[f]);
     }
 
-    vtkDoubleArray * ilgis  = vtkDoubleArray::New();
-    ilgis->SetNumberOfComponents(1);
-    ilgis->SetName("DISTANCE");
+    for(int i = 0; i < parts; i++)
+    {
+        Unique_radius->SetTuple1(i, Random_radius[i]);
+    }
 
-    double x, y, z, ilgis_1, paklaida(5e-16);
+    double x, y, z, ilgis_1, paklaida(7e-16);
 
     if(temp == 0)
     {
-
-    for(int i = 0; i < x_Points.size() ; i++)
-    {
-        for(int j = i + 1; j < x_Points.size(); j++)
+        for(int i = 0; i < x_Points.size() ; i++)
         {
-            x = x_Points[j] - x_Points[i];
-            y = y_Points[j] - y_Points[i];
-            z = z_Points[j] - z_Points[i];
-
-            ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
-
-            if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
-            {
-                cells->InsertNextCell(2);
-                cells->InsertCellPoint(i);
-                cells->InsertCellPoint(j);
-                ilgis->InsertNextTuple1(ilgis_1);
-            }
-        }
-    }
-    }
-
-    else if(temp == 1)
-    {
-        for(int i = 0; i < pirma_dalis ; i++)
-        {
-            for(int j = i + 1; j < pirma_dalis; j++)
+            for(int j = i + 1; j < x_Points.size(); j++)
             {
                 x = x_Points[j] - x_Points[i];
                 y = y_Points[j] - y_Points[i];
                 z = z_Points[j] - z_Points[i];
-
                 ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
-
                 if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
                 {
                     cells->InsertNextCell(2);
@@ -146,15 +124,46 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                     ilgis->InsertNextTuple1(ilgis_1);
                 }
             }
-
         }
+    }
 
-        //su kuo sujungtos daleles, mzesnes, pagal kita salyga.
-        for(int i = pirma_dalis; i < x_Points.size(); i++)
+    else if(temp == 1)
+    {
+        for(int i = 0; i < x_Points.size(); i++)
         {
-            for(int j = pirma_dalis + 1; j < x_Points.size(); j++)
-            {
+            for(int j = i + 1; j < x_Points.size(); j++)
 
+            {
+                x = x_Points[j] - x_Points[i];
+                y = y_Points[j] - y_Points[i];
+                z = z_Points[j] - z_Points[i];
+
+                if(i < pirma_dalis)
+                {
+                    ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
+
+                    if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
+
+                    {
+                        cells->InsertNextCell(2);
+                        cells->InsertCellPoint(i);
+                        cells->InsertCellPoint(j);
+                        ilgis->InsertNextTuple1(ilgis_1);
+                    }
+                }
+
+                else if(i > pirma_dalis)
+                {
+                    ilgis_1 = fabs(radiusHcube + Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
+
+                    if(ilgis_1 >= (radiusHcube + Radius) - paklaida && ilgis_1 <= (radiusHcube + Radius) + paklaida)
+                    {
+                        cells->InsertNextCell(2);
+                        cells->InsertCellPoint(i);
+                        cells->InsertCellPoint(j);
+                        ilgis->InsertNextTuple1(ilgis_1);
+                    }
+                }
             }
         }
     }
@@ -172,7 +181,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     vtkDataSetWriter *writer = vtkDataSetWriter::New();
 
     writer->SetInputData(poly);
-    writer->SetFileName("test_4.vtk");
+    writer->SetFileName("Test1.vtk");
     writer->SetFileTypeToBinary();
     writer->Write();
 
@@ -185,5 +194,4 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     r->Delete();
     p->Delete();
     poly->Delete();
-
- }
+}

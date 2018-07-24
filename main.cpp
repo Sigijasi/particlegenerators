@@ -12,7 +12,7 @@ int main()
 {
     Generator1 * gen = new H_Cube();
 
-    gen->initGrid(0.025, 0, 0.35, 0, 0.35, 0, 0.35); //R_Cube didziausias spindulys irasomas kaip pirmas argumentas.
+    gen->initGrid(0.5, 0, 5, 0, 5, 0, 5); //R_Cube didziausias spindulys irasomas kaip pirmas argumentas.
 
     gen->Generate();
 

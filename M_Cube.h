@@ -4,6 +4,7 @@
 class M_Cube :public Generator1
 {
 public:
+
     M_Cube();
     ~M_Cube();
 

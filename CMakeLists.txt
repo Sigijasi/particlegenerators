@@ -16,5 +16,5 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 
 
-add_executable(${PROJECT_NAME} "main.cpp" "R_Cube.h" "R_Cube.cpp" "S_Cube.h" "S_Cube.cpp" "Generator1.h" "Generator1.cpp" "M_Cube.h" "M_Cube.cpp" "H_Cube.cpp" "H_Cube.h" "Z_Cube.cpp" "Z_Cube.h")
+add_executable(${PROJECT_NAME} "main.cpp" "R_Cube.h" "R_Cube.cpp" "S_Cube.h" "S_Cube.cpp" "Generator1.h" "Generator1.cpp" "M_Cube.h" "M_Cube.cpp" "H_Cube.cpp" "H_Cube.h")
 target_link_libraries( ${PROJECT_NAME} ${VTK_LIBRARIES} )

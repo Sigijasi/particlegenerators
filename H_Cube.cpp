@@ -20,6 +20,8 @@ void H_Cube::Generate()
     double atstumas_tarp_tasku = sqrt(pow(2 * Radius, 2) + pow(2 * Radius, 2));
     double puse_atstumo = atstumas_tarp_tasku / 2;
 
+
+
     for(int i = 0; i < Nx; i++)
     {
         for(int j = 0; j < Ny; j++)
@@ -32,8 +34,6 @@ void H_Cube::Generate()
             }
         }
     }
-
-    //--------------------------------------------------------------------------------------------------------
 
     for(int i = 0; i < 1; i++)
     {
@@ -61,8 +61,6 @@ void H_Cube::Generate()
         }
     }
 
-    //--------------------------------------------------------------------------------------------------------
-
     for(int i = 0; i < 1; i++)
     {
         for(int j = 0; j < Ny - 1; j++)
@@ -88,8 +86,6 @@ void H_Cube::Generate()
             }
         }
     }
-
-    //--------------------------------------------------------------------------------------------------------
 
     for(int i = 0; i < 1; i++)
     {
@@ -145,8 +141,6 @@ void H_Cube::Generate()
         }
     }
 
-    //-------->>>>
-
     for(int i = 0; i < 1; i++)
     {
         for(int j = 0; j < Ny; j++)
@@ -173,8 +167,6 @@ void H_Cube::Generate()
         }
     }
 
-    //--->>>>>
-
     for(int i = 0; i < 1; i++)
     {
         for(int j = 0; j < Ny; j++)
@@ -200,14 +192,14 @@ void H_Cube::Generate()
             }
         }
     }
-    temp = 1;
-
-    //--->>>>>
 
     Number_Of_Points = x_Points.size();
-    parts = 2;
+
+    radiusHcube = puse_atstumo - Radius;
+
     Random_radius.push_back(Radius);
     Random_radius.push_back(puse_atstumo - Radius);
+    parts = 2;
 
     for(int i = 0; i < pirma_dalis; i++)
     {
@@ -215,9 +207,11 @@ void H_Cube::Generate()
         Daleliu_ID.push_back(0);
     }
 
-    for(int i = pirma_dalis; i < Number_Of_Points; i++)
+    for(int i = pirma_dalis; i < x_Points.size(); i++)
     {
         Skirtingi_spinduliai.push_back(puse_atstumo - Radius);
         Daleliu_ID.push_back(1);
     }
+
+    temp = 1;
 }

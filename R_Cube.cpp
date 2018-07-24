@@ -12,6 +12,7 @@ R_Cube::R_Cube(double minimum, double maximum, int dalys)
     r_min = minimum;
     r_max = maximum;
 }
+
 R_Cube::~R_Cube()
 {
 
@@ -32,7 +33,7 @@ void R_Cube::Generate()
         }
     }
 
-    Number_Of_Points = (Nx * Ny) * Nz;
+    Number_Of_Points = Nx * Ny * Nz;
 
     std::random_device rd;
     std::mt19937 eng(rd());
@@ -44,6 +45,7 @@ void R_Cube::Generate()
     }
 
     int v2;
+
     for(int i = 0; i < Number_Of_Points; i++)
     {
         v2 = rand() % parts + 0;

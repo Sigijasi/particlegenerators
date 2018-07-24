@@ -8,6 +8,7 @@ S_Cube::S_Cube()
 {
 
 }
+
 S_Cube::~S_Cube()
 {
 
@@ -28,12 +29,11 @@ void S_Cube::Generate()
         }
     }
 
-    Number_Of_Points = (Nx * Ny) * Nz;
+    Number_Of_Points = Nx * Ny * Nz;
 
     for(int i = 0; i < Number_Of_Points; i++)
     {
         Skirtingi_spinduliai.push_back(Radius);
         Daleliu_ID.push_back(0);
     }
-
 }
