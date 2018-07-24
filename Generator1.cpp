@@ -115,7 +115,9 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                 x = x_Points[j] - x_Points[i];
                 y = y_Points[j] - y_Points[i];
                 z = z_Points[j] - z_Points[i];
+
                 ilgis_1 = fabs(2.0 * Radius - std::sqrt((fabs(x) * fabs(x)) + (fabs(y) * fabs(y)) + (fabs(z) * fabs(z))));
+
                 if(ilgis_1 > (2 * Radius) - paklaida && ilgis_1 < (2 * Radius) + paklaida)
                 {
                     cells->InsertNextCell(2);

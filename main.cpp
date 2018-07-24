@@ -10,9 +10,9 @@ using namespace std;
 
 int main()
 {
-    Generator1 * gen = new H_Cube();
+    Generator1 * gen = new S_Cube();
 
-    gen->initGrid(0.5, 0, 5, 0, 5, 0, 5); //R_Cube didziausias spindulys irasomas kaip pirmas argumentas.
+    gen->initGrid(0.05, 0, 0.5, 0, 0.5, 0, 0.5);
 
     gen->Generate();
 
