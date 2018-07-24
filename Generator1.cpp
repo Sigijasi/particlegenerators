@@ -99,10 +99,18 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         p->SetPoint(f, x_Points[f], y_Points[f], z_Points[f]);
     }
 
-    for(int i = 0; i < parts; i++)
+    if(temp == 0)
     {
-        Unique_radius->SetTuple1(i, Random_radius[i]);
+         Unique_radius->SetTuple1(1, Radius);
     }
+    else if(temp == 1)
+    {
+        for(int i = 0; i < parts; i++)
+        {
+            Unique_radius->SetTuple1(i, Random_radius[i]);
+        }
+    }
+
 
     double x, y, z, ilgis_1, paklaida(7e-16);
 

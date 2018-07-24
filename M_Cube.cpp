@@ -94,6 +94,7 @@ void M_Cube::Generate()
     }
 
     Number_Of_Points = x_Points.size();
+    parts = 1;
 
     for(int i = 0; i < Number_Of_Points; i++)
     {

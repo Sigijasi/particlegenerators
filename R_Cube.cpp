@@ -52,4 +52,6 @@ void R_Cube::Generate()
         Skirtingi_spinduliai.push_back(Random_radius[v2]);
         Daleliu_ID.push_back(v2);
     }
+
+    temp = 1;
 }
