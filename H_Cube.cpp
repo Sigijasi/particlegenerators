@@ -20,8 +20,6 @@ void H_Cube::Generate()
     double atstumas_tarp_tasku = sqrt(pow(2 * Radius, 2) + pow(2 * Radius, 2));
     double puse_atstumo = atstumas_tarp_tasku / 2;
 
-
-
     for(int i = 0; i < Nx; i++)
     {
         for(int j = 0; j < Ny; j++)

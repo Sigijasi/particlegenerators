@@ -4,53 +4,61 @@
 #include <cmath>
 #include <iomanip>
 using namespace std;
-
 M_Cube::M_Cube()
 {
-
 }
-
 M_Cube::~M_Cube()
 {
-
 }
-
 void M_Cube::Generate()
 {
-    double atstumas_tarp_tasku;
+    double atstumas_tarp_tasku = 0, a = 0, b = 0;
+
     atstumas_tarp_tasku = (Radius - (sqrt((Radius * Radius) / 2))) * 2;
 
     for(int i = 1; i <= 1; i++)
     {
+        a = (i * cell_size) + (Radius - atstumas_tarp_tasku);
+
         for(int j = 1; j <= Ny - 1; j++)
         {
+            b = j * cell_size;
+
             for(int k = 1; k <= Nz - 1; k++)
             {
-                x_Points.push_back((i * cell_size) + (Radius - atstumas_tarp_tasku));
-                y_Points.push_back(j * cell_size);
+                x_Points.push_back(a);
+
+                y_Points.push_back(b);
+
                 z_Points.push_back(k * cell_size);
             }
         }
     }
 
-    double atstumo_skirtumas;
-    double o = 3;
+    double atstumo_skirtumas = (Radius + (Radius - atstumas_tarp_tasku));
 
-    atstumo_skirtumas= (Radius + (Radius - atstumas_tarp_tasku));
+    double a1 = 0, o = 3;
+
+    a = 0;
+
+    b = 0;
 
     for(int i = 2; i <= Nx - 1; i++)
     {
+        a1 = Radius + (atstumo_skirtumas * o);
+
         for(int j = 1; j <= Ny - 1; j++)
         {
+           b = j * cell_size;
+
             for(int k = 1; k <= Nz - 1; k++)
             {
-                double a1;
-                a1 = Radius + (atstumo_skirtumas * o);
-
                 if(a1 <= Nx1)
                 {
                     x_Points.push_back(a1);
-                    y_Points.push_back(j * cell_size);
+
+                    y_Points.push_back(b);
+
                     z_Points.push_back(k * cell_size);
                 }
             }
@@ -58,35 +66,50 @@ void M_Cube::Generate()
         o+= 2;
     }
 
+    b = 0;
+
     for(int i = 0; i < 1; i++)
     {
+        a = (i * cell_size) + Radius;
+
         for(int j = 0; j < Ny; j++)
         {
+            b = (j * cell_size) + Radius;
+
             for(int k = 0; k < Nz; k++)
             {
-                x_Points.push_back((i * cell_size) + Radius);
-                y_Points.push_back((j * cell_size) + Radius);
+                x_Points.push_back(a);
+
+                y_Points.push_back(b);
+
                 z_Points.push_back((k * cell_size) + Radius);
             }
         }
     }
 
-    double p = 2;
+    double p = 2, a2 = 0, c = 0;
+
+    b = 0;
 
     for(int i = 1; i < Nx; i++)
     {
+        a2 = Radius + (atstumo_skirtumas * p);
+
         for(int j = 0; j < Ny; j++)
         {
+            b = (j * cell_size) + Radius;
+
             for(int k = 0; k < Nz; k++)
             {
-                double a2;
-                a2 = Radius + (atstumo_skirtumas * p);
+                c = (k * cell_size) + Radius;
 
                 if(a2 <= Nx1)
                 {
                     x_Points.push_back(a2);
-                    y_Points.push_back((j * cell_size) + Radius);
-                    z_Points.push_back((k * cell_size) + Radius);
+
+                    y_Points.push_back(b);
+
+                    z_Points.push_back(c);
                 }
             }
         }
@@ -102,4 +125,3 @@ void M_Cube::Generate()
         Daleliu_ID.push_back(0);
     }
 }
-

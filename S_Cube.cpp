@@ -2,6 +2,11 @@
 #include "Generator1.h"
 #include <iostream>
 
+
+
+#include <cstdio>
+#include <ctime>
+
 using namespace std;
 
 S_Cube::S_Cube()
@@ -16,15 +21,23 @@ S_Cube::~S_Cube()
 
 void S_Cube::Generate()
 {
+    long double a = 0, b = 0, c = 0;
+
     for(int i = 0; i < Nx; i++)
     {
+        a = (i * cell_size) + Radius;
+
         for(int j = 0; j < Ny; j++)
         {
+            b = (j * cell_size) + Radius;
+
             for(int z = 0; z < Nz; z++)
             {
-                x_Points.push_back((i * cell_size) + Radius);
-                y_Points.push_back((j * cell_size) + Radius);
-                z_Points.push_back((z * cell_size) + Radius);
+                x_Points.push_back(a);
+                y_Points.push_back(b);
+
+                c = (z * cell_size) + Radius;
+                z_Points.push_back(c);
             }
         }
     }
@@ -38,3 +51,6 @@ void S_Cube::Generate()
         Daleliu_ID.push_back(0);
     }
 }
+
+
+
