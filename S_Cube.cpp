@@ -42,10 +42,16 @@ void S_Cube::Generate()
         }
     }
 
+    //cout << Nx << " " << Ny << " " << Nz << endl;
+       // for(int f = 0; f < x_Points.size(); f++)
+        //{
+        //    cout << x_Points[f] << " " <<  y_Points[f] << " " << z_Points[f] << endl;
+        //}
+
     Number_Of_Points = Nx * Ny * Nz;
     parts = 1;
 
-    for(int i = 0; i < Number_Of_Points; i++)
+    for(int i = 0; i < x_Points.size(); i++)
     {
         Skirtingi_spinduliai.push_back(Radius);
         Daleliu_ID.push_back(0);

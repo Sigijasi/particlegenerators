@@ -13,6 +13,8 @@ public:
 
     void SaveToFileVTK();
 
+    void UniformGrid();
+
     virtual void Generate() = 0;
 
     double x1, x2, y1, y2, z1, z2;
@@ -30,6 +32,10 @@ public:
     std::vector<double> x_Points;
     std::vector<double> y_Points;
     std::vector<double> z_Points;
+
+    std::vector<double> L_array;
+
+
 
     std::vector<double> Random_radius;
     std::vector<double> Skirtingi_spinduliai;

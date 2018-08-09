@@ -18,6 +18,9 @@
 #include <cstdio>
 #include <ctime>
 #include <vtkXMLPolyDataWriter.h>
+
+#include <algorithm>
+
 using namespace std;
 Generator1::Generator1()
 {
@@ -25,7 +28,9 @@ Generator1::Generator1()
 }
 Generator1::~Generator1()
 {
+
 }
+
 void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2)
 {
     cell_size = 2 * R;
@@ -40,31 +45,31 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
  void Generator1::SaveToFileVTK()
  {
     vtkPoints *p = vtkPoints::New();
-    p->SetNumberOfPoints(Number_Of_Points);
+    p->SetNumberOfPoints(x_Points.size());
     vtkDoubleArray *r = vtkDoubleArray::New();
     r->SetNumberOfComponents(1);
     r->SetName("RADIUS");
-    r->SetNumberOfTuples(Number_Of_Points);
+    r->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *id = vtkDoubleArray::New();
     id->SetNumberOfComponents(1);
     id->SetName("ID");
-    id->SetNumberOfTuples(Number_Of_Points);
+    id->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *Particle_type = vtkDoubleArray::New();
     Particle_type->SetNumberOfComponents(1);
     Particle_type->SetName("PARTICLE-TYPE");
-    Particle_type->SetNumberOfTuples(Number_Of_Points);
+    Particle_type->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *Particle_fix = vtkDoubleArray::New();
     Particle_fix->SetNumberOfComponents(1);
     Particle_fix->SetName("PARTICLE-FIX");
-    Particle_fix->SetNumberOfTuples(Number_Of_Points);
+    Particle_fix->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *Particle_material = vtkDoubleArray::New();
     Particle_material->SetNumberOfComponents(1);
     Particle_material->SetName("PARTICLE-MATERIAL");
-    Particle_material->SetNumberOfTuples(Number_Of_Points);
+    Particle_material->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *Velocity = vtkDoubleArray::New();
     Velocity->SetNumberOfComponents(3);
     Velocity->SetName("VELOCITY");
-    Velocity->SetNumberOfTuples(Number_Of_Points);
+    Velocity->SetNumberOfTuples(x_Points.size());
     vtkDoubleArray *Unique_radius = vtkDoubleArray::New();
     Unique_radius->SetNumberOfComponents(1);
     Unique_radius->SetName("UNIQUE-RADIUS");
@@ -72,7 +77,9 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     vtkDoubleArray *ilgis  = vtkDoubleArray::New();
     ilgis->SetNumberOfComponents(1);
     ilgis->SetName("DISTANCE");
+
     vtkCellArray *cells = vtkCellArray::New();
+
     for(int i = 0; i < x_Points.size(); i++)
     {
         id->SetTuple1(i, Daleliu_ID[i]);
@@ -83,17 +90,20 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         r->SetTuple1(i, Skirtingi_spinduliai[i]);
         p->SetPoint(i, x_Points[i], y_Points[i], z_Points[i]);
     }
+
    if(temp == 0)
    {
          Unique_radius->SetTuple1(1, Radius);
    }
-   else if(temp == 1)
-   {
-       for(int i = 0; i < parts; i++)
-       {
-           Unique_radius->SetTuple1(i, Random_radius[i]);
-       }
-   }
+   //else if(temp == 1)
+  // {
+      // for(int i = 0; i < parts; i++)
+      // {
+      //     Unique_radius->SetTuple1(i, Random_radius[i]);
+      // }
+
+   //}
+
    double x, y, z, ilgis_2, paklaida(5e-16), x_1, y_1, z_1;
 
 //------------------------------------------------------------------------------------------------------------
@@ -130,8 +140,6 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
 
        z_1 = 0;
    }
-
-
 
    else if(parts == 2)
    {
@@ -218,3 +226,42 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
     p->Delete();
     poly->Delete();
 }
+
+ void Generator1::UniformGrid()
+ {
+     int a = 0, b = 0, c = 0, div;
+
+     for(int i = 0; i < x_Points.size(); i++)
+     {
+         a = x_Points[i] / cell_size;
+         b = y_Points[i] / cell_size;
+         c = z_Points[i] / cell_size;
+
+         div = a + b * Nx + c * Nx * Ny;
+
+         L_array.push_back(div);
+
+
+
+
+
+
+
+
+     }
+
+     for(int i = 0; i < L_array.size(); i++)
+     {
+         cout << L_array[i] << endl;
+     }
+     cout << endl;
+
+     //cout << L_array[i] << endl; //L - masyvas su 'cell ID' - kvadraciukas, kuriame yra daleles centras.
+
+     std::sort(L_array.begin(),L_array.end());
+
+     for(int i = 0; i < L_array.size(); i++)
+     {
+         cout << L_array[i] << endl;
+     }
+ }
