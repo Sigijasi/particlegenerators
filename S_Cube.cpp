@@ -43,9 +43,10 @@ void S_Cube::Generate()
     }
 
     //cout << Nx << " " << Ny << " " << Nz << endl;
-       // for(int f = 0; f < x_Points.size(); f++)
-        //{
-        //    cout << x_Points[f] << " " <<  y_Points[f] << " " << z_Points[f] << endl;
+
+       //for(int f = 0; f < x_Points.size(); f++)
+       // {
+        //  cout << x_Points[f] << " " <<  y_Points[f] << " " << z_Points[f] << endl;
         //}
 
     Number_Of_Points = Nx * Ny * Nz;

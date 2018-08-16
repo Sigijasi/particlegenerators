@@ -7,10 +7,8 @@
 #include "J_Cube.h"
 #include "Generator1.h"
 
-
 #include <cstdio>
 #include <ctime>
-
 
 using namespace std;
 
@@ -18,14 +16,14 @@ int main()
 {
     clock_t start = clock();
 
-    Generator1 * gen = new H_Cube();
+    Generator1 * gen = new S_Cube();
 
-    gen->initGrid(1, 0, 4, 0, 4, 0, 4);
+    gen->initGrid(0.7, 0, 8, 0, 8, 0, 8);
 
     gen->Generate();
 
     //-----------------------------------------------------------------------------------------------------------------------------------------
-    gen->UniformGrid();
+    //gen->UniformGrid();
     //-----------------------------------------------------------------------------------------------------------------------------------------
 
     gen->SaveToFileVTK();

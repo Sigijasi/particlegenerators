@@ -20,11 +20,11 @@ void M_Cube::Generate()
     {
         a = (i * cell_size) + (Radius - atstumas_tarp_tasku);
 
-        for(int j = 1; j <= Ny - 1; j++)
+        for(int j = 1; j <= Ny ; j++)
         {
             b = j * cell_size;
 
-            for(int k = 1; k <= Nz - 1; k++)
+            for(int k = 1; k <= Nz ; k++)
             {
                 x_Points.push_back(a);
 
@@ -35,6 +35,7 @@ void M_Cube::Generate()
         }
     }
 
+
     double atstumo_skirtumas = (Radius + (Radius - atstumas_tarp_tasku));
 
     double a1 = 0, o = 3;
@@ -43,15 +44,15 @@ void M_Cube::Generate()
 
     b = 0;
 
-    for(int i = 2; i <= Nx - 1; i++)
+    for(int i = 2; i <= Nx ; i++)
     {
         a1 = Radius + (atstumo_skirtumas * o);
 
-        for(int j = 1; j <= Ny - 1; j++)
+        for(int j = 1; j <= Ny ; j++)
         {
            b = j * cell_size;
 
-            for(int k = 1; k <= Nz - 1; k++)
+            for(int k = 1; k <= Nz ; k++)
             {
                 if(a1 <= Nx1)
                 {
@@ -65,6 +66,8 @@ void M_Cube::Generate()
         }
         o+= 2;
     }
+
+
 
     b = 0;
 

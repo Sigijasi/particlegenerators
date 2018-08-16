@@ -33,7 +33,9 @@ public:
     std::vector<double> y_Points;
     std::vector<double> z_Points;
 
-    std::vector<double> L_array;
+    std::vector<int> L_array;
+    std::vector<int> ID_array;
+
 
 
 
