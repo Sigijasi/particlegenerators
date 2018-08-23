@@ -2,7 +2,6 @@
 #include "Generator1.h"
 #include <iostream>
 #include <cstdio>
-#include <ctime>
 
 using namespace std;
 
@@ -37,7 +36,6 @@ void Hexagonal_cube::Generate()
         }
     }
 
-    Number_Of_Points = Nx * Ny * Nz;
     parts = 1;
 
     for(int i = 0; i < x_Points.size(); i++)
@@ -45,6 +43,4 @@ void Hexagonal_cube::Generate()
         Skirtingi_spinduliai.push_back(Radius);
         Daleliu_ID.push_back(0);
     }
-    cout << "Hexagon" << endl;
 }
-
