@@ -20,7 +20,7 @@ public:
     double x1, x2, y1, y2, z1, z2;
     double R , Radius;
     double cell_size;
-    double Nx, Ny, Nz, Nx1, Ny1, Nz1;
+    int Nx, Ny, Nz, Nx1, Ny1, Nz1;
     double parts;
 
     int temp = 0;

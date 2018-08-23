@@ -152,6 +152,11 @@ void J_Cube::Generate()
         }
     }
 
+    for(int i = 0; i < x_Points.size(); i++)
+    {
+        cout << x_Points[i] << " " << y_Points[i] << " " << z_Points[i] << endl;
+    }
+
     Number_Of_Points = x_Points.size();
 
     parts = 1;
