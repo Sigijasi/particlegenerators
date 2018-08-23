@@ -1,10 +1,16 @@
 #include <iostream>
-#include "S_Cube.h"
-#include "R_Cube.h"
+
 #include "M_Cube.h"
 #include "H_Cube.h"
 #include "Z_Cube.h"
 #include "J_Cube.h"
+
+#include "Hexagonal_cube.h"
+#include "Random_Hexagonal_cube.h"
+
+
+
+
 #include "Generator1.h"
 
 #include <cstdio>
@@ -16,7 +22,7 @@ int main()
 {
     clock_t start = clock();
 
-    Generator1 * gen = new M_Cube();
+    Generator1 * gen = new Random_Hexagonal_cube(0.05, 0.1, 10);
 
     gen->initGrid(0.1, 0, 1, 0, 1, 0, 1);
 

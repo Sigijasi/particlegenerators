@@ -1,4 +1,5 @@
 #include "Generator1.h"
+
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkDoubleArray.h>
@@ -181,7 +182,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
 
        for(int p = 0; p < x_Points.size(); p++)
        {
-           i = std::ceil(x_Points[p] / cell_size);
+           i = std::ceil(x_Points[p] / cell_size);  ///celes indexkas X asinui
 
            rx1 = x_Points[p];
 
@@ -195,13 +196,15 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
 
            rz1 = z_Points[p];
 
+           //sities trus cuikklai apeima 27 celes343
+
            for(int a = i - 1; a <= i + 1; a++)
            {
                for(int b = j - 1; b <= j + 1; b++)
                {
                    for(int c = k - 1; c <= k + 1; c++)
                    {
-                       if(a < 0 || a >= Nx || b < 0 || c < 0 || b >= Ny || c >= Nz)
+                       if(a < 0 || a >= Nx || b < 0 || c < 0 || b >= Ny || c >= Nz) //tikrinamos ribos
                        {
                            continue;
                        }
@@ -252,7 +255,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    vtkXMLPolyDataWriter *writer = vtkXMLPolyDataWriter::New();
 
    writer->SetInputData(poly);
-   writer->SetFileName("pastumtas_testas.vtp");
+   writer->SetFileName("Redagavimas.vtp");
    writer->Write();
    writer->Delete();
    Unique_radius->Delete();
