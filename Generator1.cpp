@@ -33,61 +33,78 @@ Generator1::~Generator1()
 
 void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, double z1, double z2)
 {
-    cell_size = 2 * R;
-    Radius = R;
+    cell_size = 2 * R; //randamas daleles skersmuo.
+
+    Radius = R; //priskiriamas spindulio dydis.
+
     Nx1 = x2 - x1;
     Ny1 = y2 - y1;
     Nz1 = z2 - z1;
+
     Nz = (z2 - z1) / cell_size;
-    Ny = (y2 - y1) / cell_size;
+    Ny = (y2 - y1) / cell_size; //randamas daleliu kiekis, kuris telpa i pasirinktose ribose.
     Nx = (x2 - x1) / cell_size;
 }
  void Generator1::SaveToFileVTK()
  {
     vtkPoints *p = vtkPoints::New();
     p->SetNumberOfPoints(x_Points.size());
-    vtkDoubleArray *r = vtkDoubleArray::New();
+
+    vtkDoubleArray *r = vtkDoubleArray::New(); // sukuriamas VTK masyvas - r.
     r->SetNumberOfComponents(1);
     r->SetName("RADIUS");
     r->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *id = vtkDoubleArray::New();
-    id->SetNumberOfComponents(1);
-    id->SetName("ID");
-    id->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *Particle_type = vtkDoubleArray::New();
+
+    vtkDoubleArray *ID = vtkDoubleArray::New(); //sukuriamas VTK masyvas - ID.
+    ID->SetNumberOfComponents(1);
+    ID->SetName("ID");
+    ID->SetNumberOfTuples(x_Points.size());
+
+    vtkDoubleArray *Particle_type = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Particle type.
     Particle_type->SetNumberOfComponents(1);
     Particle_type->SetName("PARTICLE-TYPE");
     Particle_type->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *Particle_fix = vtkDoubleArray::New();
+
+    vtkDoubleArray *Particle_fix = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Particle fix.
     Particle_fix->SetNumberOfComponents(1);
     Particle_fix->SetName("PARTICLE-FIX");
     Particle_fix->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *Particle_material = vtkDoubleArray::New();
+
+    vtkDoubleArray *Particle_material = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Particle material.
     Particle_material->SetNumberOfComponents(1);
     Particle_material->SetName("PARTICLE-MATERIAL");
     Particle_material->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *Velocity = vtkDoubleArray::New();
+
+    vtkDoubleArray *Velocity = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Velocity.
     Velocity->SetNumberOfComponents(3);
     Velocity->SetName("VELOCITY");
     Velocity->SetNumberOfTuples(x_Points.size());
-    vtkDoubleArray *Unique_radius = vtkDoubleArray::New();
+
+    vtkDoubleArray *Unique_radius = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Unique Radius.
     Unique_radius->SetNumberOfComponents(1);
     Unique_radius->SetName("UNIQUE-RADIUS");
     Unique_radius->SetNumberOfTuples(parts);
-    vtkDoubleArray *ilgis  = vtkDoubleArray::New();
-    ilgis->SetNumberOfComponents(1);
-    ilgis->SetName("DISTANCE");
 
-    vtkCellArray *cells = vtkCellArray::New();
+    vtkDoubleArray *Distance  = vtkDoubleArray::New(); //sukuriamas VTK masyvas - Distance.
+    Distance->SetNumberOfComponents(1);
+    Distance->SetName("DISTANCE");
+
+    vtkCellArray *cells = vtkCellArray::New(); //sukuriamas VTK deleliu masyvas.
 
     for(int i = 0; i < x_Points.size(); i++)
     {
-        id->SetTuple1(i, Daleliu_ID[i]);
+        ID->SetTuple1(i, Daleliu_ID[i]);
+
         Particle_type->SetTuple1(i, 0);
+
         Particle_material->SetTuple1(i, 0);
+
         Particle_fix->SetTuple1(i, 0);
+
         Velocity->SetTuple3(i, 0, 0, 0);
+
         r->SetTuple1(i, Skirtingi_spinduliai[i]);
+
         p->SetPoint(i, x_Points[i], y_Points[i], z_Points[i]);
     }
 
@@ -109,20 +126,21 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    if(parts == 1)
    {
 
-       int a = 0, b = 0, c = 0, FormulesRezultatas;
-       int Daleles_ID = -1;
+
 
        for(int i = 0; i < x_Points.size(); i++)
        {
+           int a = 0, b = 0, c = 0;
            a = x_Points[i] / cell_size;
            b = y_Points[i] / cell_size;
            c = z_Points[i] / cell_size;
 
+           int FormulesRezultatas = 0;
            FormulesRezultatas = a + b * Nx + c * Nx * Ny;
 
            L_array.push_back(FormulesRezultatas);
-           Daleles_ID++;
-           ID_array.push_back(Daleles_ID);
+
+           ID_array.push_back(i);
        }
 
        vector<pair<int, int>> RusiuojamasVektorius;
@@ -172,10 +190,10 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
            }
        }
 
-       for(int i = 0; i < START.size(); i++)
-       {
-           cout << START.at(i) << " " << END.at(i) << endl;
-       }
+      // for(int i = 0; i < START.size(); i++)
+       //{
+          // cout << START.at(i) << " " << END.at(i) << endl;
+       //}
 
        int i = 0, j = 0, k = 0, ID = 0, S = 0, C = 0, d;
        double rx1 = 0, ry1 = 0, rz1 = 0, rx2 = 0, ry2 = 0, rz2 = 0, ilgis1 = 0;
@@ -233,7 +251,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                                cells->InsertNextCell(2);
                                cells->InsertCellPoint(p);
                                cells->InsertCellPoint(d);
-                               ilgis->InsertNextTuple1(ilgis1);
+                               Distance->InsertNextTuple1(ilgis1);
                            }
                        }
                    }
@@ -243,11 +261,11 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    }
 
    poly->SetLines(cells);
-   poly->GetCellData()->SetScalars(ilgis);
+   poly->GetCellData()->SetScalars(Distance);
    poly->SetPoints(p);
    poly->GetPointData()->SetScalars(r);
    poly->GetPointData()->AddArray(Particle_fix);
-   poly->GetPointData()->AddArray(id);
+   poly->GetPointData()->AddArray(ID);
    poly->GetPointData()->AddArray(Particle_type);
    poly->GetPointData()->AddArray(Particle_material);
    poly->GetFieldData()->AddArray(Unique_radius);
@@ -255,14 +273,14 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    vtkXMLPolyDataWriter *writer = vtkXMLPolyDataWriter::New();
 
    writer->SetInputData(poly);
-   writer->SetFileName("Redagavimas.vtp");
+   writer->SetFileName("Red.vtp");
    writer->Write();
    writer->Delete();
    Unique_radius->Delete();
    Velocity->Delete();
    Particle_material->Delete();
    Particle_type->Delete();
-   id->Delete();
+   ID->Delete();
    r->Delete();
    p->Delete();
    poly->Delete();

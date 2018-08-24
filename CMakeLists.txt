@@ -16,5 +16,5 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 
 
-add_executable(${PROJECT_NAME} "main.cpp" "Hexagonal_cube.cpp" "Hexagonal_cube.h" "Random_Hexagonal_cube.h" "Random_Hexagonal_cube.cpp" "Generator1.h" "Generator1.cpp" "M_Cube.h" "M_Cube.cpp" "J_Cube.cpp" "J_Cube.h" "H_Cube.cpp" "H_Cube.h")
+add_executable(${PROJECT_NAME} "main.cpp" "Face_Centered_cube.h" "Face_Centered_cube.cpp" "Hexagonal_cube.cpp" "Hexagonal_cube.h" "Diamond_Structure_cube.h" "Diamond_Structure_cube.cpp" "Random_Hexagonal_cube.h" "Random_Hexagonal_cube.cpp" "Generator1.h" "Generator1.cpp" "M_Cube.h" "M_Cube.cpp" "H_Cube.cpp" "H_Cube.h")
 target_link_libraries( ${PROJECT_NAME} ${VTK_LIBRARIES} )

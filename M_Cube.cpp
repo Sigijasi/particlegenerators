@@ -117,6 +117,7 @@ void M_Cube::Generate()
     }
 
 
+    cout << "Daleliu koordinates - issisaugojimui: " << endl;
     for(int i = 0; i < x_Points.size(); i++)
     {
         cout << x_Points.at(i) << " " << y_Points.at(i) << " " << z_Points.at(i) << endl;
