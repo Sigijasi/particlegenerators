@@ -2,9 +2,9 @@
 #include <vector>
 #include <vtkPolyData.h>
 
-
 class Generator1
 {
+
 public:
     Generator1();
     ~Generator1();
@@ -36,14 +36,10 @@ public:
     std::vector<int> L_array;
     std::vector<int> ID_array;
 
-
-
-
     std::vector<double> Random_radius;
     std::vector<double> Skirtingi_spinduliai;
     std::vector<double> Daleliu_ID;
     int Number_Of_Points;
-
 
     int pirma_dalis = 0;
 };

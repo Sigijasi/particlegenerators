@@ -1,5 +1,4 @@
 #include "Generator1.h"
-
 #include <vtkSmartPointer.h>
 #include <vtkPoints.h>
 #include <vtkDoubleArray.h>
@@ -91,7 +90,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
 
     vtkCellArray *cells = vtkCellArray::New(); //sukuriamas VTK deleliu masyvas.
 
-    for(int i = 0; i < x_Points.size(); i++)
+    for(int i = 0; i < x_Points.size(); i++) //talpinamos reiksmes i masyvus.
     {
         ID->SetTuple1(i, Daleliu_ID[i]);
 
@@ -121,136 +120,157 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
         }
     }
 
-//------------------------------------------------------------------------------------------------------------
 
-   if(parts == 1)
-   {
-
-
-
+  if(parts == 1)
+  {
        for(int i = 0; i < x_Points.size(); i++)
        {
            int a = 0, b = 0, c = 0;
            a = x_Points[i] / cell_size;
-           b = y_Points[i] / cell_size;
+           b = y_Points[i] / cell_size; //randamos lasteliu koordinates (a, b, c).
            c = z_Points[i] / cell_size;
 
            int FormulesRezultatas = 0;
-           FormulesRezultatas = a + b * Nx + c * Nx * Ny;
+           FormulesRezultatas = a + b * Nx + c * Nz * Ny; //skaiciuojama i kuria lastele patenka tam tikra dalele.
 
-           L_array.push_back(FormulesRezultatas);
+           L_array.push_back(FormulesRezultatas); //talpinamas rezultate gautas lasteles id.
 
-           ID_array.push_back(i);
+           ID_array.push_back(i); //kiekvienos daleles ID pridedamas i masyva.
        }
 
        vector<pair<int, int>> RusiuojamasVektorius;
 
        for(int i = 0; i < L_array.size(); i++)
        {
-           RusiuojamasVektorius.push_back(make_pair(L_array[i], ID_array[i]));
+           RusiuojamasVektorius.push_back(make_pair(L_array[i], ID_array[i])); //masyvu duomenys suskirstomi poromis.
        }
 
-       sort(RusiuojamasVektorius.begin(), RusiuojamasVektorius.end());
+       sort(RusiuojamasVektorius.begin(), RusiuojamasVektorius.end()); //L_array masyvas rusiuojamas didejimo tvarka, ID_array rusiuojamas pagal L_array.
 
-       for(int i = 0; i < L_array.size() + 1; i++)
+       for(int i = 0; i < L_array.size(); i++)
        {
            L_array[i] = RusiuojamasVektorius[i].first;
            ID_array[i] = RusiuojamasVektorius[i].second;
        }
 
-       L_array.push_back(0);
 
-       ID_array.push_back(0);
+       int lasteliuSkaicius = Nx * Ny * Nz;
+
+
+
+
+
+
+       cout << endl;
+
+       //==================================================================
+
+
+       std::vector<int> gridCOUNT;
+
+
+
+       for(int i = 0; i < lasteliuSkaicius; i++)
+       {
+           gridCOUNT.push_back(0);
+       }
+
+       for(int i = 0; i < L_array.size(); i++)
+       {
+           int a1 = 0;
+           a1 = gridCOUNT[L_array[i]] + 1;
+
+           gridCOUNT[L_array[i]] = 0;
+
+           gridCOUNT[L_array[i]] = a1;
+
+       }
+
+       for(int i = 0; i < lasteliuSkaicius; i++)
+       {
+           cout << gridCOUNT[i] << endl;
+       }
+
+cout << endl;
+
+       //========================================================================
+
 
        std::vector<int> START;
        std::vector<int> END;
 
-       START.push_back(0);
-
-       int counter = 0, counter1 = 1;
-
-       for(int i = 0; i < L_array.size() - 1; i++)
+        START.push_back(0);
+       for(int i = 0; i < lasteliuSkaicius; i++)
        {
-           counter++;
 
-           if(L_array[i] == L_array[i + 1])
+           if(gridCOUNT[i] == 2)
            {
-               counter1++;
+               END.push_back(i + gridCOUNT[i]);
+               START.push_back(gridCOUNT[i + 1]);
+           }
+           else
+           {
+
+
+           END.push_back(i + gridCOUNT[i]);
+           START.push_back(i + 1);
            }
 
-           else if(L_array[i] <= L_array[i + 1])
-           {
-               END.push_back(counter - 1);
-               START.push_back(counter);
-           }
-
-           else if(L_array[i + 1] == 0)
-           {
-               END.push_back(counter - 1);
-           }
        }
 
-      // for(int i = 0; i < START.size(); i++)
-       //{
-          // cout << START.at(i) << " " << END.at(i) << endl;
-       //}
+int suma;
+       for (int i = 0; i < lasteliuSkaicius; i++)
+       {
+           suma+=gridCOUNT[i];
+          cout << START[i] << " - " << END[i] << "             " << gridCOUNT.at(i) << endl;
+       }
 
-       int i = 0, j = 0, k = 0, ID = 0, S = 0, C = 0, d;
-       double rx1 = 0, ry1 = 0, rz1 = 0, rx2 = 0, ry2 = 0, rz2 = 0, ilgis1 = 0;
+
+
 
        for(int p = 0; p < x_Points.size(); p++)
        {
-           i = std::ceil(x_Points[p] / cell_size);  ///celes indexkas X asinui
+           int i = 0, j = 0, k = 0;
 
-           rx1 = x_Points[p];
+           i = std::ceil(x_Points[p] / cell_size); //lasteles indeksas x asimi.
 
+           j = std::ceil(y_Points[p] / cell_size); //lasteles indeksas y asimi.
 
-           j = std::ceil(y_Points[p] / cell_size);
+           k = std::ceil(z_Points[p] / cell_size); //lasteles indeksas z asimi.
 
-           ry1 = y_Points[p];
-
-
-           k = std::ceil(z_Points[p] / cell_size);
-
-           rz1 = z_Points[p];
-
-           //sities trus cuikklai apeima 27 celes343
-
-           for(int a = i - 1; a <= i + 1; a++)
+           for(int a = i - 1; a <= i + 1; a++) //tris ciklai apimantys visas esamas daleles.
            {
                for(int b = j - 1; b <= j + 1; b++)
                {
                    for(int c = k - 1; c <= k + 1; c++)
                    {
-                       if(a < 0 || a >= Nx || b < 0 || c < 0 || b >= Ny || c >= Nz) //tikrinamos ribos
+                       if(a < 0 || a >= Nx || b < 0 || c < 0 || b >= Ny || c >= Nz) //tikrinamos pasirinktu dydziu ribos tikrinant.
                        {
                            continue;
                        }
 
-                       ID = a + b * Nx + c * Nx * Ny;
+                       int ID = a + b * Nx + c * Nz * Ny;
 
-                       S = START[ID];
+                       int Start = START[ID], End = END[ID];
 
-                       C = END[ID];
-
-                       for(int u = S; u <= C; u++)
+                       for(int u = Start; u < End; u++) //ciklo pagalba tikrinamos visos daleles esancios vienoje lasteleje.
                        {
-                           d = ID_array[u];
-                           rx2 = x_Points[d];
-                           ry2 = y_Points[d];
-                           rz2 = z_Points[d];
+                           double ilgis1 = 0;
+                           ilgis1 = sqrt(pow((x_Points[p] - x_Points[ID_array[u]]), 2) + pow((y_Points[p] - y_Points[ID_array[u]]), 2) + pow((z_Points[p] - z_Points[ID_array[u]]), 2));
 
-                           ilgis1 = sqrt(pow((rx1 - rx2), 2) + pow((ry1 - ry2), 2) + pow((rz1 - rz2), 2));
+                           double paklaida = 0;
+                           paklaida = fabs(ilgis1 - Skirtingi_spinduliai[ID_array[u]] - Skirtingi_spinduliai[p]); //randamas atstumu tarp daleliu skirtumas,.
 
-                           double paklaida_ = 0, kkk(8e-6);
+                           double konst(8e-6); //pasirinkta paklaidos reiksme.
 
-                           paklaida_ = fabs(ilgis1 - Skirtingi_spinduliai[d] - Skirtingi_spinduliai[p]);
-
-                           if(paklaida_ <= kkk)
+                           if(paklaida <= konst) //tikrinama ar tenkinama pasirinkta salyga.
                            {
                                cells->InsertNextCell(2);
+
                                cells->InsertCellPoint(p);
-                               cells->InsertCellPoint(d);
+
+                               cells->InsertCellPoint(ID_array[u]);
+
                                Distance->InsertNextTuple1(ilgis1);
                            }
                        }
@@ -258,7 +278,9 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
                }
            }
        }
-   }
+
+  }
+
 
    poly->SetLines(cells);
    poly->GetCellData()->SetScalars(Distance);
@@ -273,7 +295,7 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    vtkXMLPolyDataWriter *writer = vtkXMLPolyDataWriter::New();
 
    writer->SetInputData(poly);
-   writer->SetFileName("Red.vtp");
+   writer->SetFileName("test100.vtp");
    writer->Write();
    writer->Delete();
    Unique_radius->Delete();
@@ -285,7 +307,3 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
    p->Delete();
    poly->Delete();
 }
-
-
-
-

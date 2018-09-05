@@ -19,8 +19,7 @@ Random_Hexagonal_cube::~Random_Hexagonal_cube()
 
 void Random_Hexagonal_cube::Generate()
 {
-    //triju ciklu pagalba ieskomos kiekvienos daleles koordinates (x, y, z).
-    for(int i = 0; i < Nx; i++)
+    for(int i = 0; i < Nx; i++) //triju ciklu pagalba ieskomos kiekvienos daleles koordinates (x, y, z).
     {
         long double a;
         a = (i * cell_size) + Radius;
