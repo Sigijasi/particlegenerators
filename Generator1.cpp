@@ -153,18 +153,12 @@ void Generator1::initGrid(double R, double x1, double x2, double y1, double y2, 
            ID_array[i] = RusiuojamasVektorius[i].second;
        }
 
-
        int lasteliuSkaicius = Nx * Ny * Nz;
-
-
        cout << endl;
 
        //==================================================================
 
-
        std::vector<int> gridCOUNT;
-
-
 
        for(int i = 0; i < lasteliuSkaicius; i++)
        {
@@ -214,12 +208,15 @@ cout << endl;
 
        }
 
-int suma;
+
+       /*
+       int suma;
        for (int i = 0; i < lasteliuSkaicius; i++)
        {
            suma+=gridCOUNT[i];
           cout << START[i] << " - " << END[i] << "             " << gridCOUNT.at(i) << endl;
        }
+       */
 
 
 
@@ -291,7 +288,7 @@ int suma;
    vtkXMLPolyDataWriter *writer = vtkXMLPolyDataWriter::New();
 
    writer->SetInputData(poly);
-   writer->SetFileName("test100.vtp");
+   writer->SetFileName("test1.vtp");
    writer->Write();
    writer->Delete();
    Unique_radius->Delete();
