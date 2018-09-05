@@ -20,6 +20,6 @@ add_executable(${PROJECT_NAME} "main.cpp" "test.h" "test.cpp"
 "RandomRegular_cube.h" "RandomRegular_cube.cpp"
 "Regular_cube.h" "Regular_cube.cpp" "Face_Centered_cube.h"
 "Face_Centered_cube.cpp" "Hexagonal_cube.cpp" "Hexagonal_cube.h"
-"Diamond_Structure_cube.h" "Diamond_Structure_cube.cpp" "Random_Hexagonal_cube.h"
-"Random_Hexagonal_cube.cpp" "Generator1.h" "Generator1.cpp")
+"Diamond_Structure_cube.h" "Diamond_Structure_cube.cpp"
+ "Generator1.h" "Generator1.cpp")
 target_link_libraries( ${PROJECT_NAME} ${VTK_LIBRARIES} )
