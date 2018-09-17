@@ -1,10 +1,7 @@
 #include <iostream>
 
 #include "Regular_cube.h"
-
-
 #include "test.h"
-
 #include "Hexagonal_cube.h"
 #include "Random_Hexagonal_cube.h"
 #include "Face_Centered_cube.h"
@@ -23,7 +20,7 @@ int main()
 
     Generator1 * gen = new Hexagonal_cube();
 
-    gen->initGrid(0.25, 0, 1, 0, 1, 0, 1);
+    gen->initGrid(0.05, 0, 2, 0, 2, 0, 2);
 
     gen->Generate();
 

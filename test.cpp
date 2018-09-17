@@ -15,40 +15,45 @@ test::~test()
 
 void test::Generate()
 {
-    //triju ciklu pagalba ieskomos kiekvienos daleles koordinates (x, y, z).
+    double atstumas_tarp_tasku;
 
-    long double SpinduliuSkirtumas = 0;
+    atstumas_tarp_tasku = (Radius - (sqrt((Radius * Radius) / 2))) * 2;
 
-    SpinduliuSkirtumas = (Radius - (sqrt((Radius * Radius) / 2))) * 2;
-    cout << SpinduliuSkirtumas << endl;
+    cout << atstumas_tarp_tasku << endl;
 
-    long double t = 0;
-
+    cout << Nx << " " << Ny << " " << Nz << endl;
     for(int i = 0; i < Nx; i++)
     {
-        long double a = 0;
-        a = (i * cell_size + t);
+        long double a;
+        a = (i * cell_size) + Radius;
 
         for(int j = 0; j < Ny; j++)
         {
-            long double b = 0;
-            b = (j * cell_size);
+            long double b;
+            b = (j * cell_size) + Radius;
 
-            for(int z = 0; z < Nz; z++)
+            for(int k = 0; k < Nz; k++)
             {
-                long double c = 0;
-                c = (z * cell_size);
+                long double c;
+                c = (k * cell_size) + Radius;
 
-                x_Points.push_back(a);
-
-                y_Points.push_back(b);//sudaromi trys daleliu koordinaciu masyvai: X koordinates - x_Points, Y - y_Points, Z - z_Points.
-
-                z_Points.push_back(c);
+                if(i == 0 || i % 2 == 0 && j == 0 || j % 2 == 0 && k == 0 || k % 2 == 0)
+                {
 
 
+                    x_Points.push_back(a);
+                    y_Points.push_back(b);
+                    z_Points.push_back(c);
+
+                }
+                else if(i != 0 || i % 2 != 0)
+                {
+
+
+
+                }
             }
         }
-        t = SpinduliuSkirtumas;
     }
 
     for(int i = 0; i < x_Points.size(); i++)

@@ -152,16 +152,9 @@ void Face_Centered_cube::Generate()
         }
     }
 
-    for(int i = 0; i < x_Points.size(); i++)
-    {
-        cout << x_Points[i] << " " << y_Points[i] << " " << z_Points[i] << endl;
-    }
-
-    Number_Of_Points = x_Points.size();
-
     parts = 1;
 
-    for(int i = 0; i < Number_Of_Points; i++)
+    for(int i = 0; i < x_Points.size(); i++)
     {
         Skirtingi_spinduliai.push_back(Radius);
         Daleliu_ID.push_back(0);

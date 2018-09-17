@@ -43,8 +43,6 @@ void Regular_cube::Generate()
         Skirtingi_spinduliai.push_back(Radius); //spindulys priskiriamas kiekvienai dalelei.
         Daleliu_ID.push_back(0); //kiekvienai dalelei priskiriamas spindulio id.
     }
-
     parts = 1;
-
 }
 

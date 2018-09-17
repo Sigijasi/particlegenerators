@@ -16,10 +16,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 
 
-add_executable(${PROJECT_NAME} "main.cpp" "test.h" "test.cpp"
+add_executable(${PROJECT_NAME} "main.cpp"
 "RandomRegular_cube.h" "RandomRegular_cube.cpp"
 "Regular_cube.h" "Regular_cube.cpp" "Face_Centered_cube.h"
 "Face_Centered_cube.cpp" "Hexagonal_cube.cpp" "Hexagonal_cube.h"
 "Diamond_Structure_cube.h" "Diamond_Structure_cube.cpp"
- "Generator1.h" "Generator1.cpp")
+"Generator1.h" "Generator1.cpp")
 target_link_libraries( ${PROJECT_NAME} ${VTK_LIBRARIES} )

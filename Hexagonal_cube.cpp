@@ -29,9 +29,7 @@ void Hexagonal_cube::Generate()
             for(int k = 1; k <= Nz - 1; k++)
             {
                 x_Points.push_back(a);
-
                 y_Points.push_back(b);
-
                 z_Points.push_back(k * cell_size);
             }
         }
@@ -58,9 +56,7 @@ void Hexagonal_cube::Generate()
                 if(a1 <= Nx1)
                 {
                     x_Points.push_back(a1);
-
                     y_Points.push_back(b);
-
                     z_Points.push_back(k * cell_size);
                 }
             }
@@ -118,8 +114,10 @@ void Hexagonal_cube::Generate()
         p += 2;
     }
 
+    for(int i = 0; i < x_Points.size(); i++)
+    {
 
-
+    }
 
     Number_Of_Points = x_Points.size();
     parts = 1;
