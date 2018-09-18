@@ -1,7 +1,6 @@
 #include <iostream>
 
 #include "Regular_cube.h"
-#include "test.h"
 #include "Hexagonal_cube.h"
 #include "Random_Hexagonal_cube.h"
 #include "Face_Centered_cube.h"
